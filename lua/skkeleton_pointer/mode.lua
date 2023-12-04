@@ -32,6 +32,10 @@ end
 function Mode:open()
   local label = Util.get_mode_label()
 
+  if label == "" then
+    return
+  end
+
   ---@type integer
   local buf = vim.api.nvim_create_buf(false, true)
 
@@ -54,10 +58,17 @@ end
 function Mode:update()
   if self:visible() then
     local label = Util.get_mode_label()
+
+    if label == "" then
+      return
+    end
+
     self:set_text(label)
     vim.api.nvim_win_set_config(self.win, {
       width = vim.fn.strdisplaywidth(label),
     })
+  else
+    self:open()
   end
 end
 
