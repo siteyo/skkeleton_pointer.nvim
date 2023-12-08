@@ -87,21 +87,21 @@ end
 
 ---@type nil
 function Mode:close()
-  if self:visible() then
-    vim.schedule(function()
+  vim.schedule(function()
+    if self:visible() then
       local buf = vim.api.nvim_win_get_buf(self.win)
       vim.api.nvim_win_close(self.win, true)
       vim.api.nvim_buf_delete(buf, { force = true })
       self.win = nil
-    end)
-  end
+    end
+  end)
 end
 
 ---@param text string
 ---@return nil
 function Mode:set_text(text)
   local buf = vim.api.nvim_win_get_buf(self.win)
-  vim.api.nvim_buf_set_lines(buf, 0, 0, false, { text })
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, { text })
 end
 
 return Mode
