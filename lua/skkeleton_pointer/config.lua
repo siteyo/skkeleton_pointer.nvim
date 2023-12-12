@@ -1,6 +1,7 @@
 ---@class SkkeletonPointerOpts
 ---@field mode ModeLabels
 ---@field state StateLabels
+---@field fade_out_ms integer
 ---@field use_state_pointer boolean
 ---@field mode_win_opts PointerWinOpts
 ---@field state_win_opts PointerWinOpts
@@ -48,6 +49,7 @@ function Config:setup(opts)
       henkan = "▼▼",
       escape = "",
     },
+    fade_out_ms = 2000,
     mode_win_opts = {},
     state_win_opts = {},
     use_state_pointer = true,

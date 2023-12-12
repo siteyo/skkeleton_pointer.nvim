@@ -5,6 +5,7 @@ local Config = require("skkeleton_pointer.config")
 ---@field win? integer
 ---@field opts PointerWinOpts
 local Mode = {
+  timer = vim.loop.new_timer(),
   win = nil,
   opts = {},
 }
@@ -108,6 +109,11 @@ function Mode:set_text(text)
   local buf = vim.api.nvim_win_get_buf(self.win)
   vim.api.nvim_buf_set_lines(buf, 0, -1, false, { text })
   vim.api.nvim_buf_add_highlight(buf, Config.namespace, "SkkeletonPointerMode", 0, 0, -1)
+  if Config.opts.fade_out_ms > 0 then
+    self.timer:start(Config.opts.fade_out_ms, 0, function()
+      self:close()
+    end)
+  end
 end
 
 return Mode
