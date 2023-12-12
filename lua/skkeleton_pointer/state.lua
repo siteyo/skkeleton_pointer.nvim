@@ -1,4 +1,5 @@
 local Util = require("skkeleton_pointer.util")
+local Config = require("skkeleton_pointer.config")
 
 ---@class State
 ---@field win? integer
@@ -19,7 +20,11 @@ end
 ---@return State
 function State:init(opts)
   self.opts = opts
-  -- TODO: Sets a highlight group.
+  vim.api.nvim_set_hl(0, "SkkeletonPointerState", {
+    fg = "#2e3440",
+    bg = "#acbe8c",
+    bold = true,
+  })
   return self
 end
 
@@ -85,6 +90,7 @@ end
 function State:set_text(text)
   local buf = vim.api.nvim_win_get_buf(self.win)
   vim.api.nvim_buf_set_lines(buf, 0, 0, false, { text })
+  vim.api.nvim_buf_add_highlight(buf, Config.namespace, "SkkeletonPointerState", 0, 0, -1)
 end
 
 return State

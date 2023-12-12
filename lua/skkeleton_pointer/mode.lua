@@ -1,4 +1,5 @@
 local Util = require("skkeleton_pointer.util")
+local Config = require("skkeleton_pointer.config")
 
 ---@class Mode
 ---@field win? integer
@@ -19,7 +20,11 @@ end
 ---@return Mode
 function Mode:init(opts)
   self.opts = opts
-  -- TODO: Sets a highlight group.
+  vim.api.nvim_set_hl(0, "SkkeletonPointerMode", {
+    fg = "#2e3440",
+    bg = "#88c0d0",
+    bold = true,
+  })
   return self
 end
 
@@ -102,6 +107,7 @@ end
 function Mode:set_text(text)
   local buf = vim.api.nvim_win_get_buf(self.win)
   vim.api.nvim_buf_set_lines(buf, 0, -1, false, { text })
+  vim.api.nvim_buf_add_highlight(buf, Config.namespace, "SkkeletonPointerMode", 0, 0, -1)
 end
 
 return Mode
