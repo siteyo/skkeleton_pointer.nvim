@@ -5,6 +5,7 @@ local Config = require("skkeleton_pointer.config")
 ---@field win? integer
 ---@field opts PointerWinOpts
 local State = {
+  prev = nil,
   win = nil,
   opts = {},
 }
@@ -56,6 +57,8 @@ function State:open()
   self.win = vim.api.nvim_open_win(buf, false, opts)
 
   self:set_text(label)
+
+  self.prev = Util.get_state()
 end
 
 ---@return nil
@@ -67,9 +70,19 @@ function State:update()
       return
     end
     self:set_text(label)
-    vim.api.nvim_win_set_config(self.win, {
-      width = vim.fn.strdisplaywidth(label),
-    })
+    if self.prev == "henkan" then
+      vim.api.nvim_win_set_config(self.win, {
+        relative = "cursor",
+        row = 1,
+        col = -vim.fn.strdisplaywidth(label),
+        width = vim.fn.strdisplaywidth(label),
+      })
+    else
+      vim.api.nvim_win_set_config(self.win, {
+        width = vim.fn.strdisplaywidth(label),
+      })
+    end
+    self.prev = Util.get_state()
   else
     self:open()
   end
