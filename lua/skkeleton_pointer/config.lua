@@ -32,6 +32,7 @@
 local Config = {}
 
 ---@param opts SkkeletonPointerOpts
+---@return nil
 function Config:setup(opts)
   self.opts = vim.tbl_deep_extend("force", {
     mode = {

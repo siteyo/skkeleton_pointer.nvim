@@ -11,6 +11,7 @@ function Pointer.new()
   return setmetatable({}, { __index = Pointer })
 end
 
+---@return nil
 function Pointer:setup()
   local autocmd = Autocmd.new()
 

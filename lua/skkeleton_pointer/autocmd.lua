@@ -2,6 +2,7 @@
 ---@field group integer
 local Autocmd = {}
 
+---@return Autocmd
 function Autocmd.new()
   return setmetatable({
     group = vim.api.nvim_create_augroup("skkeleton-pointer", {}),

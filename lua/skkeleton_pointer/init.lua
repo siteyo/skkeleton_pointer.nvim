@@ -9,6 +9,7 @@ local M = {
 }
 
 ---@param opts SkkeletonPointerOpts
+---@return nil
 function M.setup(opts)
   require("skkeleton_pointer.config"):setup(opts)
   pointer:setup()

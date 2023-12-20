@@ -88,6 +88,7 @@ function State:update()
   end
 end
 
+---@return nil
 function State:close()
   vim.schedule(function()
     if self:visible() then
@@ -100,6 +101,7 @@ function State:close()
 end
 
 ---@param text string
+---@return nil
 function State:set_text(text)
   local buf = vim.api.nvim_win_get_buf(self.win)
   vim.api.nvim_buf_set_lines(buf, 0, 0, false, { text })
