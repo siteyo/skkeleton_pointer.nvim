@@ -70,7 +70,8 @@ function State:update()
       return
     end
     self:set_text(label)
-    if self.prev == "henkan" then
+    local current_state = Util.get_state()
+    if self.prev == "henkan" and current_state == "input:okurinasi" then
       vim.api.nvim_win_set_config(self.win, {
         relative = "cursor",
         row = 1,
