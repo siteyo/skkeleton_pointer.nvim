@@ -14,4 +14,10 @@ function Util.get_state_label()
   return Config.opts.state[string.gsub(state.phase, ":", "_")] or ""
 end
 
+---@return string
+function Util.get_state()
+  local state = vim.api.nvim_get_var("skkeleton#state")
+  return state.phase or ""
+end
+
 return Util
