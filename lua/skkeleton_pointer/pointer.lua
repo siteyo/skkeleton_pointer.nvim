@@ -16,46 +16,20 @@ function Pointer:setup()
 
   local mode = Mode.new(Config.opts.mode_win_opts or {})
   autocmd:add({
-    {
-      "InsertEnter",
-      "*",
-      function()
-        mode:open()
-      end,
-    },
-    {
-      "InsertLeave",
-      "*",
-      function()
-        mode:close()
-      end,
-    },
-    {
-      "CursorMovedI",
-      "*",
-      function()
-        mode:move()
-      end,
-    },
-    {
-      "User",
-      "skkeleton-mode-changed",
-      function()
-        mode:update()
-      end,
-    },
+    -- stylua: ignore start
+    { "InsertEnter", "*", function() mode:open() end },
+    { "InsertLeave", "*", function() mode:close() end },
+    { "CursorMovedI", "*", function() mode:move() end },
+    { "User", "skkeleton-mode-changed", function() mode:update() end },
+    -- stylua: ignore end
   })
 
   if Config.opts.use_state_pointer then
     local state = State.new(Config.opts.state_win_opts or {})
     autocmd:add({
-      {
-        "User",
-        "skkeleton-handled",
-        function()
-          state:update()
-        end,
-      },
+      -- stylua: ignore start
+      { "User", "skkeleton-handled", function() state:update() end },
+      -- stylua: ignore end
     })
   end
 end
