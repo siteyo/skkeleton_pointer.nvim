@@ -37,7 +37,6 @@ end
 ---@return nil
 function Mode:open()
   local label = Util.get_mode_label()
-
   if label == "" then
     return
   end
@@ -64,7 +63,6 @@ end
 function Mode:update()
   if self:visible() then
     local label = Util.get_mode_label()
-
     if label == "" then
       return
     end
@@ -97,6 +95,7 @@ function Mode:close()
     if self:visible() then
       local buf = vim.api.nvim_win_get_buf(self.win)
       vim.api.nvim_win_close(self.win, true)
+      vim.api.nvim_buf_clear_namespace(buf, Config.namespace, 0, -1)
       vim.api.nvim_buf_delete(buf, { force = true })
       self.win = nil
     end
