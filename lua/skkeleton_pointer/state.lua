@@ -22,8 +22,8 @@ end
 function State:init(opts)
   self.opts = opts
   vim.api.nvim_set_hl(0, "SkkeletonPointerState", {
-    fg = "#2e3440",
-    bg = "#acbe8c",
+    fg = "#acbe8c",
+    bg = "#2e3440",
     bold = true,
   })
   return self
@@ -69,6 +69,7 @@ function State:update()
       self:close()
       return
     end
+
     self:set_text(label)
     local current_state = Util.get_state()
     if self.prev == "henkan" and current_state == "input:okurinasi" then
@@ -95,6 +96,7 @@ function State:close()
     if self:visible() then
       local buf = vim.api.nvim_win_get_buf(self.win)
       vim.api.nvim_win_close(self.win, true)
+      vim.api.nvim_buf_clear_namespace(buf, Config.namespace, 0, -1)
       vim.api.nvim_buf_delete(buf, { force = true })
       self.win = nil
     end
@@ -105,7 +107,8 @@ end
 ---@return nil
 function State:set_text(text)
   local buf = vim.api.nvim_win_get_buf(self.win)
-  vim.api.nvim_buf_set_lines(buf, 0, 0, false, { text })
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, { text })
+  vim.api.nvim_buf_clear_namespace(buf, Config.namespace, 0, -1)
   vim.api.nvim_buf_add_highlight(buf, Config.namespace, "SkkeletonPointerState", 0, 0, -1)
 end
 
