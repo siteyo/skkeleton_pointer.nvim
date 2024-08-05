@@ -22,8 +22,8 @@ end
 function State:init(opts)
   self.opts = opts
   vim.api.nvim_set_hl(0, "SkkeletonPointerState", {
-    fg = "#acbe8c",
-    bg = "#2e3440",
+    fg = "#2e3440",
+    bg = "#acbe8c",
     bold = true,
   })
   return self
